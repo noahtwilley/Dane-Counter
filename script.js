@@ -12,7 +12,7 @@ const controlDiv = document.querySelector(".control");
 
 function speak(text) {
   window.speechSynthesis.cancel();
-  const utterance = new SpeechSynthesisUtterance(String(text));
+  const utterance = new SpeechSynthesisUtterance(String(text).toLowerCase()); // 👈 lowercases before speaking
   utterance.lang = "en-US";
   window.speechSynthesis.speak(utterance);
 }
