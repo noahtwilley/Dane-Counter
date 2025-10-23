@@ -8,6 +8,7 @@ body {
   background: #c4c090;
   color: #222;
   margin: 0;
+  position: relative; /* allows absolutely positioned child elements */
 }
 
 h1 {
@@ -16,13 +17,14 @@ h1 {
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-/* Dropdown container */
+/* Dropdown container — now top-left */
 .control {
+  position: absolute;
+  top: 20px;
+  left: 20px;
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-top:  1.5rem;
-  margin-bottom: 1.5rem;
   background: white;
   padding: 0.75rem 1rem;
   border-radius: 12px;
@@ -91,9 +93,7 @@ button:active {
   background: #ed8d2a;
 }
 
-
 .alphabet {
   background: #8e6c8a;
-  margin-top:  1.5rem;
-
+  margin-top: 1.5rem;
 }
