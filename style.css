@@ -5,7 +5,7 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background: linear-gradient(180deg, #93db9d 0%, #6fcf97 100%);
+  background: #c4c090;
   color: #222;
   margin: 0;
 }
@@ -21,6 +21,7 @@ h1 {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  margin-top:  1.5rem;
   margin-bottom: 1.5rem;
   background: white;
   padding: 0.75rem 1rem;
@@ -69,23 +70,30 @@ button:active {
 }
 
 .increase {
-  background: #007bff;
+  background: #65bcb5;
 }
 .increase:hover {
-  background: #0056b3;
+  background: #65bcb5;
 }
 
 .decrease {
-  background: #ffc107;
-  color: black;
+  background: #edc45a;
+  color: rgb(255, 255, 255);
 }
 .decrease:hover {
-  background: #e0a800;
+  background: #edc45a;
 }
 
 .reset {
-  background: #dc3545;
+  background: #ed8d2a;
 }
 .reset:hover {
-  background: #a71d2a;
+  background: #ed8d2a;
+}
+
+
+.alphabet {
+  background: #8e6c8a;
+  margin-top:  1.5rem;
+
 }
