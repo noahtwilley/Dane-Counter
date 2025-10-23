@@ -4,106 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Talking Counter</title>
-  <style>
-    body {
-      font-family: sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      background: #93db9d;
-    }
-
-    h1 {
-      font-size: 5rem;
-      margin-bottom: 1rem;
-    }
-
-    .buttons {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    button {
-      font-size: 1.5rem;
-      padding: 1rem 2rem;
-      border: none;
-      color: white;
-      border-radius: 12px;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .increase {
-      background: #007bff;
-    }
-    .increase:hover {
-      background: #0056b3;
-    }
-
-    .decrease {
-      background: #ffc107;
-      color: black;
-    }
-    .decrease:hover {
-      background: #e0a800;
-    }
-
-    .reset {
-      background: #dc3545;
-    }
-    .reset:hover {
-      background: #a71d2a;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <h1 id="count">0</h1>
-
   <div class="buttons">
-    <button class="decrease" id="dec">Decrease</button>
-    <button class="increase" id="inc">Increase</button>
+    <button id="inc">Increase</button>
+    <button class="reset" id="reset">Reset</button>
   </div>
 
-  <button class="reset" id="reset">Reset</button>
-
-  <script>
-    let count = 0;
-    const countDisplay = document.getElementById("count");
-    const incBtn = document.getElementById("inc");
-    const decBtn = document.getElementById("dec");
-    const resetBtn = document.getElementById("reset");
-
-    function speak(text) {
-      window.speechSynthesis.cancel();
-      const utterance = new SpeechSynthesisUtterance(String(text));
-      utterance.lang = 'en-US';
-      window.speechSynthesis.speak(utterance);
-    }
-
-    function updateDisplay() {
-      countDisplay.textContent = count;
-    }
-
-    incBtn.addEventListener("click", () => {
-      count++;
-      updateDisplay();
-      speak(count);
-    });
-
-    decBtn.addEventListener("click", () => {
-      count--;
-      updateDisplay();
-      speak(count);
-    });
-
-    resetBtn.addEventListener("click", () => {
-      count = 0;
-      updateDisplay();
-      speak("zero");
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
