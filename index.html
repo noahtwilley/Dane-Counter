@@ -9,6 +9,9 @@
 <body>
   <h1 id="count">0</h1>
 
+  <!-- Dropdown menu -->
+
+
   <div class="buttons">
     <button class="decrease" id="dec">Decrease</button>
     <button class="increase" id="inc">Increase</button>
@@ -16,6 +19,23 @@
 
   <button class="reset" id="reset">Reset</button>
 
-  <script type="module" src="script.js"></script>
+
+ <div class="control">
+    <label for="step">Increment amount:</label>
+    <select id="step">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+      <option value="8">8</option>
+      <option value="9">9</option>
+      <option value="10">10</option>
+    </select>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
