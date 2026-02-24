@@ -32,7 +32,7 @@
   <main class="app">
     <section id="screen-counter" class="screen active" role="tabpanel">
       <div class="control">
-        <label for="step">Increment amount:</label>
+        <label for="step" id="label-step">Increment amount:</label>
         <select id="step">
           <option value="1">1</option>
           <option value="2">2</option>
@@ -62,15 +62,22 @@
     </section>
 
     <section id="screen-colors" class="screen" role="tabpanel" aria-hidden="true">
-      <h2 class="screen-title">Colors</h2>
+      <div class="language-control">
+        <label for="language" id="label-language">Language</label>
+        <select id="language">
+          <option value="en">English</option>
+          <option value="no">Norsk</option>
+        </select>
+      </div>
+      <h2 class="screen-title" id="title-colors">Colors</h2>
       <div class="color-grid" id="colorGrid">
-        <button class="color-tile" data-color="Red" style="--tile:#ff4d4f;">Red</button>
-        <button class="color-tile" data-color="Orange" style="--tile:#ff8c42;">Orange</button>
-        <button class="color-tile" data-color="Yellow" style="--tile:#ffd93d;">Yellow</button>
-        <button class="color-tile" data-color="Green" style="--tile:#6bcf63;">Green</button>
-        <button class="color-tile" data-color="Blue" style="--tile:#4a90e2;">Blue</button>
-        <button class="color-tile" data-color="Indigo" style="--tile:#4b3f72;">Indigo</button>
-        <button class="color-tile" data-color="Violet" style="--tile:#8b5cf6;">Violet</button>
+        <button class="color-tile" data-color-key="red" style="--tile:#ff4d4f;">Red</button>
+        <button class="color-tile" data-color-key="orange" style="--tile:#ff8c42;">Orange</button>
+        <button class="color-tile" data-color-key="yellow" style="--tile:#ffd93d;">Yellow</button>
+        <button class="color-tile" data-color-key="green" style="--tile:#6bcf63;">Green</button>
+        <button class="color-tile" data-color-key="blue" style="--tile:#4a90e2;">Blue</button>
+        <button class="color-tile" data-color-key="indigo" style="--tile:#4b3f72;">Indigo</button>
+        <button class="color-tile" data-color-key="violet" style="--tile:#8b5cf6;">Violet</button>
       </div>
     </section>
   </main>

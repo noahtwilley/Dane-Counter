@@ -14,6 +14,77 @@ const tabColors = document.getElementById("tab-colors");
 const screenCounter = document.getElementById("screen-counter");
 const screenColors = document.getElementById("screen-colors");
 const colorTiles = document.querySelectorAll(".color-tile");
+const languageSelect = document.getElementById("language");
+const stepLabel = document.getElementById("label-step");
+const languageLabel = document.getElementById("label-language");
+const colorsTitle = document.getElementById("title-colors");
+
+const translations = {
+  en: {
+    tabCounter: "Counter",
+    tabColors: "Colors",
+    stepLabel: "Increment amount:",
+    decrease: "Decrease",
+    increase: "Increase",
+    reset: "Reset",
+    alphabet: "Alphabet",
+    colorsTitle: "Colors",
+    languageLabel: "Language",
+    colors: {
+      red: "Red",
+      orange: "Orange",
+      yellow: "Yellow",
+      green: "Green",
+      blue: "Blue",
+      indigo: "Indigo",
+      violet: "Violet",
+    },
+  },
+  no: {
+    tabCounter: "Teller",
+    tabColors: "Farger",
+    stepLabel: "Øk med:",
+    decrease: "Mindre",
+    increase: "Mer",
+    reset: "Nullstill",
+    alphabet: "Alfabet",
+    colorsTitle: "Farger",
+    languageLabel: "Språk",
+    colors: {
+      red: "Rød",
+      orange: "Oransje",
+      yellow: "Gul",
+      green: "Grønn",
+      blue: "Blå",
+      indigo: "Indigo",
+      violet: "Fiolett",
+    },
+  },
+};
+
+let currentLang = "en";
+
+function applyLanguage(lang) {
+  const t = translations[lang] || translations.en;
+  currentLang = lang;
+
+  tabCounter.textContent = t.tabCounter;
+  tabColors.textContent = t.tabColors;
+  stepLabel.textContent = t.stepLabel;
+  decBtn.textContent = t.decrease;
+  incBtn.textContent = t.increase;
+  resetBtn.textContent = t.reset;
+  alphabetBtn.textContent = t.alphabet;
+  colorsTitle.textContent = t.colorsTitle;
+  languageLabel.textContent = t.languageLabel;
+
+  colorTiles.forEach((tile) => {
+    const key = tile.dataset.colorKey;
+    if (t.colors[key]) {
+      tile.textContent = t.colors[key];
+    }
+  });
+}
 
 function setActiveTab(tabName) {
   const isCounter = tabName === "counter";
@@ -54,10 +125,17 @@ tabColors.addEventListener("click", () => setActiveTab("colors"));
 
 colorTiles.forEach((tile) => {
   tile.addEventListener("click", () => {
-    const name = tile.dataset.color || tile.textContent;
+    const key = tile.dataset.colorKey;
+    const name = translations[currentLang].colors[key] || tile.textContent;
     speak(name);
   });
 });
+
+languageSelect.addEventListener("change", (event) => {
+  applyLanguage(event.target.value);
+});
+
+applyLanguage(languageSelect.value);
 
 incBtn.addEventListener("click", () => {
   if (alphabetMode) {
