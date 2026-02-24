@@ -40,26 +40,26 @@ const translations = {
       violet: "Violet",
     },
   },
-  no: {
-    tabCounter: "Teller",
-    tabColors: "Farger",
-    stepLabel: "Øk med:",
-    decrease: "Mindre",
-    increase: "Mer",
-    reset: "Nullstill",
-    alphabet: "Alfabet",
-    colorsTitle: "Farger",
-    languageLabel: "Språk",
-    colors: {
-      red: "Rød",
-      orange: "Oransje",
-      yellow: "Gul",
-      green: "Grønn",
-      blue: "Blå",
-      indigo: "Indigo",
-      violet: "Fiolett",
-    },
-  },
+  // no: {
+  //   tabCounter: "Teller",
+  //   tabColors: "Farger",
+  //   stepLabel: "Øk med:",
+  //   decrease: "Mindre",
+  //   increase: "Mer",
+  //   reset: "Nullstill",
+  //   alphabet: "Alfabet",
+  //   colorsTitle: "Farger",
+  //   languageLabel: "Språk",
+  //   colors: {
+  //     red: "Rød",
+  //     orange: "Oransje",
+  //     yellow: "Gul",
+  //     green: "Grønn",
+  //     blue: "Blå",
+  //     indigo: "Indigo",
+  //     violet: "Fiolett",
+  //   },
+  // },
 };
 
 let currentLang = "en";
@@ -68,15 +68,15 @@ function applyLanguage(lang) {
   const t = translations[lang] || translations.en;
   currentLang = lang;
 
-  tabCounter.textContent = t.tabCounter;
-  tabColors.textContent = t.tabColors;
-  stepLabel.textContent = t.stepLabel;
-  decBtn.textContent = t.decrease;
-  incBtn.textContent = t.increase;
-  resetBtn.textContent = t.reset;
-  alphabetBtn.textContent = t.alphabet;
-  colorsTitle.textContent = t.colorsTitle;
-  languageLabel.textContent = t.languageLabel;
+  if (tabCounter) tabCounter.textContent = t.tabCounter;
+  if (tabColors) tabColors.textContent = t.tabColors;
+  if (stepLabel) stepLabel.textContent = t.stepLabel;
+  if (decBtn) decBtn.textContent = t.decrease;
+  if (incBtn) incBtn.textContent = t.increase;
+  if (resetBtn) resetBtn.textContent = t.reset;
+  if (alphabetBtn) alphabetBtn.textContent = t.alphabet;
+  if (colorsTitle) colorsTitle.textContent = t.colorsTitle;
+  if (languageLabel) languageLabel.textContent = t.languageLabel;
 
   colorTiles.forEach((tile) => {
     const key = tile.dataset.colorKey;
@@ -108,11 +108,14 @@ function speak(text) {
 }
 
 function updateDisplay() {
+  if (!countDisplay) return;
   countDisplay.textContent = count;
 }
 
 function getStep() {
-  return parseInt(stepSelect.value);
+  if (!stepSelect) return 1;
+  const step = parseInt(stepSelect.value, 10);
+  return Number.isNaN(step) ? 1 : step;
 }
 
 function toLetter(index) {
@@ -131,66 +134,78 @@ colorTiles.forEach((tile) => {
   });
 });
 
-languageSelect.addEventListener("change", (event) => {
-  applyLanguage(event.target.value);
-});
+if (languageSelect) {
+  languageSelect.addEventListener("change", (event) => {
+    applyLanguage(event.target.value);
+  });
 
-applyLanguage(languageSelect.value);
+  applyLanguage(languageSelect.value);
+} else {
+  applyLanguage("en");
+}
 
-incBtn.addEventListener("click", () => {
-  if (alphabetMode) {
-    alphabetIndex = (alphabetIndex + 1) % 26;
-    const letter = toLetter(alphabetIndex);
-    countDisplay.textContent = letter;
-    speak(letter);
-  } else {
-    count += getStep();
-    updateDisplay();
-    speak(count);
-  }
-});
+if (incBtn) {
+  incBtn.addEventListener("click", () => {
+    if (alphabetMode) {
+      alphabetIndex = (alphabetIndex + 1) % 26;
+      const letter = toLetter(alphabetIndex);
+      if (countDisplay) countDisplay.textContent = letter;
+      speak(letter);
+    } else {
+      count += getStep();
+      updateDisplay();
+      speak(count);
+    }
+  });
+}
 
-decBtn.addEventListener("click", () => {
-  if (alphabetMode) {
-    alphabetIndex = (alphabetIndex - 1 + 26) % 26;
-    const letter = toLetter(alphabetIndex);
-    countDisplay.textContent = letter;
-    speak(letter);
-  } else {
-    count -= getStep();
-    updateDisplay();
-    speak(count);
-  }
-});
+if (decBtn) {
+  decBtn.addEventListener("click", () => {
+    if (alphabetMode) {
+      alphabetIndex = (alphabetIndex - 1 + 26) % 26;
+      const letter = toLetter(alphabetIndex);
+      if (countDisplay) countDisplay.textContent = letter;
+      speak(letter);
+    } else {
+      count -= getStep();
+      updateDisplay();
+      speak(count);
+    }
+  });
+}
 
-resetBtn.addEventListener("click", () => {
-  if (alphabetMode) {
-    alphabetIndex = 0;
-    countDisplay.textContent = "A";
-    speak("A");
-  } else {
-    count = 0;
-    updateDisplay();
-    speak("zero");
-  }
-});
+if (resetBtn) {
+  resetBtn.addEventListener("click", () => {
+    if (alphabetMode) {
+      alphabetIndex = 0;
+      if (countDisplay) countDisplay.textContent = "A";
+      speak("A");
+    } else {
+      count = 0;
+      updateDisplay();
+      speak("zero");
+    }
+  });
+}
 
-alphabetBtn.addEventListener("click", () => {
-  alphabetMode = !alphabetMode;
+if (alphabetBtn) {
+  alphabetBtn.addEventListener("click", () => {
+    alphabetMode = !alphabetMode;
 
-  if (alphabetMode) {
-    // Switch to alphabet mode
-    countDisplay.textContent = "A";
-    alphabetIndex = 0;
-    controlDiv.style.display = "none";
-    count = 0;
-    alphabetBtn.textContent = "Number Mode";
-    speak("A");
-  } else {
-    // Switch back to number mode
-    controlDiv.style.display = "flex";
-    countDisplay.textContent = count;
-    alphabetBtn.textContent = "Alphabet Mode";
-    speak(count);
-  }
-});
+    if (alphabetMode) {
+      // Switch to alphabet mode
+      if (countDisplay) countDisplay.textContent = "A";
+      alphabetIndex = 0;
+      if (controlDiv) controlDiv.style.display = "none";
+      count = 0;
+      alphabetBtn.textContent = "Number Mode";
+      speak("A");
+    } else {
+      // Switch back to number mode
+      if (controlDiv) controlDiv.style.display = "flex";
+      if (countDisplay) countDisplay.textContent = count;
+      alphabetBtn.textContent = "Alphabet Mode";
+      speak(count);
+    }
+  });
+}
