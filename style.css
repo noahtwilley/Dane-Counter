@@ -151,6 +151,20 @@ button:active {
   border: 1px solid var(--panel-border);
 }
 
+@media (max-width: 600px) {
+  .control {
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .tabs {
+    top: 90px;
+    right: 50%;
+    transform: translateX(50%);
+  }
+}
+
 .tab-btn {
   font-size: 1rem;
   padding: 0.55rem 1rem;
