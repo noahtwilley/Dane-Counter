@@ -103,7 +103,7 @@ function setActiveTab(tabName) {
 function speak(text) {
   window.speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(String(text).toLowerCase()); // 👈 lowercases before speaking
-  utterance.lang = "en-US";
+  utterance.lang = currentLang === "no" ? "nb-NO" : "en-US";
   window.speechSynthesis.speak(utterance);
 }
 
