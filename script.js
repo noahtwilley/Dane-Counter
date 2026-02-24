@@ -9,6 +9,25 @@ const resetBtn = document.getElementById("reset");
 const stepSelect = document.getElementById("step");
 const alphabetBtn = document.getElementById("alp");
 const controlDiv = document.querySelector(".control");
+const tabCounter = document.getElementById("tab-counter");
+const tabColors = document.getElementById("tab-colors");
+const screenCounter = document.getElementById("screen-counter");
+const screenColors = document.getElementById("screen-colors");
+const colorTiles = document.querySelectorAll(".color-tile");
+
+function setActiveTab(tabName) {
+  const isCounter = tabName === "counter";
+
+  tabCounter.classList.toggle("active", isCounter);
+  tabCounter.setAttribute("aria-selected", String(isCounter));
+  tabColors.classList.toggle("active", !isCounter);
+  tabColors.setAttribute("aria-selected", String(!isCounter));
+
+  screenCounter.classList.toggle("active", isCounter);
+  screenCounter.setAttribute("aria-hidden", String(!isCounter));
+  screenColors.classList.toggle("active", !isCounter);
+  screenColors.setAttribute("aria-hidden", String(isCounter));
+}
 
 function speak(text) {
   window.speechSynthesis.cancel();
@@ -29,6 +48,16 @@ function toLetter(index) {
   // Wraps around A-Z
   return String.fromCharCode(65 + (index % 26 + 26) % 26);
 }
+
+tabCounter.addEventListener("click", () => setActiveTab("counter"));
+tabColors.addEventListener("click", () => setActiveTab("colors"));
+
+colorTiles.forEach((tile) => {
+  tile.addEventListener("click", () => {
+    const name = tile.dataset.color || tile.textContent;
+    speak(name);
+  });
+});
 
 incBtn.addEventListener("click", () => {
   if (alphabetMode) {
